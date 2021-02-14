@@ -1,8 +1,12 @@
 {
   "name": "🎅🏻 Snowlord's Bag of Quizlet Exploits!",
-  "version": "0.1.2.5",
-  "manifest_version": 2,
-
+  "version": "0.1.9",
+  "manifest_version": 2,  
+  "content_scripts": [{
+    "js": ["flashcard.js"],
+    "css": ["dark.css"],
+    "matches": ["https://quizlet.com/*/flashcards"]
+  }],
   "background" : {
     "scripts" : ["background.js"]
   },

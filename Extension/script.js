@@ -1,6 +1,5 @@
-
 /*! DrewSnow v0.0.1 | (c) https://github.com/SnowLord7 */
-let _extensionVersion = 1613271474610;
+let _extensionVersion = 1613273780489;
 
 /**
  * Library by Drew Snow for miscellaneous uses 
@@ -1345,32 +1344,105 @@ Live.prototype.interval = function () {
     }
 }
 function Flashcards() {
-	const options = {
-        'text': atob('RHJldyBTbm93IHdhcyBoZXJl'),
-        'size': 150,
-        'weight': 800,
-        'speed': 2500
-    };
+    /*!
+// Snow.js - v0.0.3
+// kurisubrooks.com
+*/
 
-    for (let i = 0; i < 50; i++) {
-        let element = document.createElement('div');
-        element.className = 'floatingElements'
-        element.style = `width: 100%; height: 100%; margin: auto; pointer-events: none; user-select: none; font-weight: ${options.weight}; font-size: ${options.size}px; position: absolute; z-index: 2147483647; transition: all ${options.speed/1000}s linear; transform-origin: center center; text-align: center;`;
-        element.textContent = options.text;
+// Amount of Snowflakes
+var snowMax = 35;
 
-        document.body.appendChild(element);
-    }
+// Snowflake Colours
+var snowColor = ["#DDD", "#EEE"];
 
-    setInterval(() => {
-        let elements = document.getElementsByClassName('floatingElements');
-        for (let i = 0; i < elements.length; i++) {
-            elements[i].style.color = color();
-            elements[i].style.opacity = Math.random() + .1;
-            elements[i].style.transform = `rotate(${drewsnow.random(0,360)}deg) translate(${drewsnow.random(-1000,1000)}px, ${drewsnow.random(-500,500)}px) translate3d(${drewsnow.random(0,200)}px,${drewsnow.random(0,200)}px,${drewsnow.random(0,200)}px) rotateX(${drewsnow.random(0,360)}deg) rotateY(${drewsnow.random(0,360)}deg) rotateZ(${drewsnow.random(0,360)}deg)`;
-        }
-    }, options.speed);
+// Snow Entity
+var snowEntity = "&#x2022;";
 
-    function color() { return ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink'][Math.floor(Math.random() * 7)]; }
+// Falling Velocity
+var snowSpeed = 0.75;
+
+// Minimum Flake Size
+var snowMinSize = 8;
+
+// Maximum Flake Size
+var snowMaxSize = 24;
+
+// Refresh Rate (in milliseconds)
+var snowRefresh = 50;
+
+// Additional Styles
+var snowStyles = "cursor: default; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none;";
+
+/*
+// End of Configuration
+// ----------------------------------------
+// Do not modify the code below this line
+*/
+
+var snow = [],
+	pos = [],
+	coords = [],
+	lefr = [],
+	marginBottom,
+	marginRight;
+
+function randomise(range) {
+	rand = Math.floor(range * Math.random());
+	return rand;
+}
+
+function initSnow() {
+	var snowSize = snowMaxSize - snowMinSize;
+	marginBottom = document.body.scrollHeight - 5;
+	marginRight = document.body.clientWidth - 15;
+
+	for (i = 0; i <= snowMax; i++) {
+		coords[i] = 0;
+		lefr[i] = Math.random() * 15;
+		pos[i] = 0.03 + Math.random() / 10;
+		snow[i] = document.getElementById("flake" + i);
+		snow[i].style.fontFamily = "inherit";
+		snow[i].size = randomise(snowSize) + snowMinSize;
+		snow[i].style.fontSize = snow[i].size + "px";
+		snow[i].style.color = snowColor[randomise(snowColor.length)];
+		snow[i].style.zIndex = 1000;
+		snow[i].sink = snowSpeed * snow[i].size / 5;
+		snow[i].posX = randomise(marginRight - snow[i].size);
+		snow[i].posY = randomise(2 * marginBottom - marginBottom - 2 * snow[i].size);
+		snow[i].style.left = snow[i].posX + "px";
+		snow[i].style.top = snow[i].posY + "px";
+	}
+
+	moveSnow();
+}
+
+function resize() {
+	marginBottom = document.body.scrollHeight - 5;
+	marginRight = document.body.clientWidth - 15;
+}
+
+function moveSnow() {
+	for (i = 0; i <= snowMax; i++) {
+		coords[i] += pos[i];
+		snow[i].posY += snow[i].sink;
+		snow[i].style.left = snow[i].posX + lefr[i] * Math.sin(coords[i]) + "px";
+		snow[i].style.top = snow[i].posY + "px";
+
+		if (snow[i].posY >= marginBottom - 2 * snow[i].size || parseInt(snow[i].style.left) > (marginRight - 3 * lefr[i])) {
+			snow[i].posX = randomise(marginRight - snow[i].size);
+			snow[i].posY = 0;
+		}
+	}
+
+	setTimeout("moveSnow()", snowRefresh);
+}
+
+for (i = 0; i <= snowMax; i++) {
+	document.write("<span id='flake" + i + "' style='" + snowStyles + "position:absolute;top:-" + snowMaxSize + "'>" + snowEntity + "</span>");
+}
+
+window.addEventListener('resize', resize);
+window.addEventListener('load', initSnow);
 }
 function Gravity() {
 	this.speed = 100;
@@ -2128,4 +2200,3 @@ Debug.prototype.get_hashes = () => {
     if (typeof settings == 'object') hashes.Settings = JSON.stringify(settings).hashCode();
     return hashes;
 }
-

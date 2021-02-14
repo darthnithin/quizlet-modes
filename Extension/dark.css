@@ -1,0 +1,22 @@
+ html {
+    filter: invert(1) hue-rotate(180deg);
+}
+.snowflake {
+    filter: invert(1) hue-rotate(180deg); 
+}
+img {
+    filter: invert(1) hue-rotate(180deg); 
+} 
+.credits {
+    float: right;
+    /* position: relative; */
+ 
+/*     margin-bottom: 0%;
+    margin-right: 0% !important;
+    padding: 0; */
+    font-family:'Courier New', Courier, monospace;
+    z-index: 2147483647;
+    position: absolute; 
+    bottom: 0;
+    right: 0;
+}
