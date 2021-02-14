@@ -28,6 +28,9 @@ function update() {
 		console.log('Total characters:', output.value.split('').length);
 		console.log('Total Size:', output.value.split('').length / 1000, 'MB');
 		console.timeEnd('Finished in');
+		console.log(output.value)
+		output.select();
+		document.execCommand("copy");
 	}
 }
 
