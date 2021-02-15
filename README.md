@@ -1,3 +1,6 @@
+# My News!!!
+I submited the ./Extension to Chrome Web Store, hopefully it is granted!!!
+
 # Preface
 I won't be developing this script very much, but I decided it to release it to help people understand what the code is doing. Feel free to submit issues and pull requests, I will be sure to check them out.
 
